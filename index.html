@@ -109,11 +109,14 @@ textarea:focus{outline:none;border-color:#1565C0}
             <label>Your Full Name</label>
             <input type="text" id="studentName" placeholder="Enter your name...">
             <label>Your Class</label>
-            <select id="studentClass">
-                <option value="">Select your class...</option>
-                <option value="3087">3087 — Mon/Wed 11:00 AM – PS1 (A1) – Eunice Salazar</option>
-                <option value="3097">3097 — Tue/Thu 6:30 PM – PS1 (A1) – Eunice Salazar</option>
-            </select>
+            <input type="hidden" id="teacherName" value="">
+<select  id="className" onchange="setTeacher(this)">
+<option value="">-- Select your class --</option>
+<optgroup label="Eunice Salazar">
+<option value="3087" data-teacher="Eunice Salazar">3087 - Mon/Wed 11:00 AM (Eunice)</option>
+<option value="3097" data-teacher="Eunice Salazar">3097 - Tue/Thu 6:30 PM (Eunice)</option>
+</optgroup>
+</select>
             <button class="btn" onclick="startQuiz()">Start Final Review →</button>
         </div>
     </div>
@@ -279,6 +282,8 @@ textarea:focus{outline:none;border-color:#1565C0}
 </div>
 
 <script>
+function setTeacher(sel){var opt=sel.options[sel.selectedIndex];var t=document.getElementById("teacherName");if(t)t.value=opt?(opt.getAttribute("data-teacher")||""):"";}
+
 const SESSION='Class 15';
 let studentName='',studentClass='',scores={l:0,v:0,w:0,s:0,g:0},writingText='';
 let readingAnswers=[],grammarAnswers=[];
@@ -424,7 +429,7 @@ function initQuestions(){
 
 function startQuiz(){
     studentName=document.getElementById('studentName').value.trim();
-    studentClass=document.getElementById('studentClass').value;
+    studentClass=document.getElementById('className').value;
     if(!studentName){alert('Please enter your name');return;}
     if(!studentClass){alert('Please select your class');return;}
     initQuestions();
