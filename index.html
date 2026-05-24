@@ -335,7 +335,7 @@ const scenarios={
 // Reading Questions - A1 Level
 const readingQBank=[
     {q:"Where is Maria from?",opts:["Mexico","Colombia","Brazil"],correct:1},
-    {q:"What is Maria\'s job?",opts:["A teacher","A nurse","A student"],correct:1},
+    {q:"What is Maria's job?",opts:["A teacher","A nurse","A student"],correct:1},
     {q:"Where is the mall?",opts:["Next to the hospital","Across from the park","Behind the school"],correct:1},
     {q:"What color clothes does Maria like?",opts:["Red","Green","Blue"],correct:2},
     {q:"When does Maria study English?",opts:["Mondays","Tue/Thu","Sundays"],correct:1}
@@ -812,6 +812,7 @@ function submitToTeacher(){
     if(btn){btn.disabled=true;btn.textContent='Submitting...';}
     const pct=Math.round((scores.l+scores.v+scores.w+scores.s+scores.g)/57*100);
     const transcriptText=transcript.length>0?transcript.join('\n'):'No transcript captured';
+    const teacher=document.getElementById('teacherName').value||'';
     const formData=new FormData();
     formData.append('entry.154629934',studentName||'');
     formData.append('entry.771629595',studentClass||'');
@@ -824,7 +825,7 @@ function submitToTeacher(){
     formData.append('entry.543147037',pct+'%');
     formData.append('entry.301386877',writingText||'');
     formData.append('entry.879060890',transcriptText);
-    formData.append('entry.1451249480','A1');
+    formData.append('entry.1451249480',teacher);
     fetch('https://docs.google.com/forms/d/e/1FAIpQLSfxgLZofrw5wLjtEaU9K0xgJWqztxigBXxpHCXe2Ndi3UOpnQ/formResponse',{method:'POST',mode:'no-cors',body:formData})
         .then(function(){
             if(btn){btn.textContent='Submitted!';btn.style.background='#22c55e';}
